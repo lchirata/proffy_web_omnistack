@@ -2,39 +2,51 @@ import React from 'react';
 import whatsappIcon from '../../assets/images/icons/whatsapp.svg';
 
 import './styles.css';
+import api from '../../services/api';
 
+export interface Teacher{
+        id: number,
+        avatar: string,
+        bio: string,
+        cost: string,
+        name: string,
+        subject: string,
+        whatsapp: string,
+}
 
-function TeacherItem() {
+interface TeacherItemProps {
+    teacher: Teacher
+}
+
+const TeacherItem: React.FC<TeacherItemProps> = ({ teacher }) =>{
+    function createNewConnection(){
+        api.post('connections', {
+            user_id: teacher.id,
+        })
+    }
+
     return(
 <article className="teacher-item">
     <header>
-        <img src="data:image/png;base64,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" alt="Hello Kitty" />
+        <img src={teacher.avatar} alt={teacher.name}/>
         <div>
-            <strong>Hello Kitty</strong>
-            <span>Biologia</span>
+            <strong>{teacher.name}</strong>
+            <span>{teacher.subject}</span>
         </div>
     </header>
-    <p>
-        Aulas dinâmicas de biologia!
-                        <br></br>
-                        Introdução à Biologia.
-                        Cálculo I e II.
-                        Física I e II.
-                        Introdução à Ecologia.
-                        Morfologia e Taxonomia.
-                        Zoologia dos Invertebrados.
-                        Zoologia dos Vertebrados.
-                        Respiração, Circulação e Metabolismo.
-                    </p>
+    <p>{teacher.bio}</p>
     <footer>
         <p>
             Preço/hora
-        <strong>R$ 80,00</strong>
+        <strong>R$ {teacher.cost}</strong>
         </p>
-        <button type="button">
+        <a 
+            target="blank" 
+            onClick={createNewConnection}
+            href={`https://wa.me/${teacher.whatsapp}`}>
             <img src={whatsappIcon} alt="Whatsapp" />
                             Entrar em contato.
-                        </button>
+        </a>
 
 
     </footer>
