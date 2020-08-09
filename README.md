@@ -1,3 +1,3 @@
-# proffy_web_omnistack
+# proffy
 
-<img width="auto" src="https://github.com/lchirata/proffy_web_omnistack/blob/master/src/assets/images/logo.svg">
+Sua plataforma de estudos online.
